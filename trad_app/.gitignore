@@ -1,9 +1,19 @@
-/.idea/codeStyles/codeStyleConfig.xml
-/.idea/crowtest.iml
-/.idea/modules.xml
-/.idea/vcs.xml
-/.idea/workspace.xml
 
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
