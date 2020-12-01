@@ -9,14 +9,13 @@ Empty docker-compose project running a symfony app with nginx gateway, mysql dat
 ## Installation (dev mode)
 At the root of the project :
 ```bash
-cd app
-composer install
+make install
 ```
 
 ## Launch the app
 At the root of the project :
 ```bash
-docker-compose up -d --build
+make
 ```
 then go to `http://localhost:8080`
 
