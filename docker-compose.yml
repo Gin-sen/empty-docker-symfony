@@ -5,10 +5,7 @@ services:
   mysql:
     build:
       context: docker/mysql
-      dockerfile: Dockerfile
-    container_name: 'mysql'
     restart: on-failure
-    hostname: 'mysql'
     volumes:
       - ./docker/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf:ro
       - ./trad_app/var/log/mysql:/var/log/mysql:consistent
@@ -22,21 +19,16 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    container_name: 'php'
     restart: on-failure
-    hostname: 'php'
     volumes:
       - ./trad_app:/app/:consistent
       - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.override.ini:ro
-    working_dir: /app
 
   nginx:
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
-    container_name: 'nginx'
-    hostname: 'nginx'
     restart: on-failure
     ports:
       - '8080:80'
