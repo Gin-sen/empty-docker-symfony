@@ -1,28 +1,32 @@
-# empty-docker-symfony
-Empty docker-compose project running a symfony app with nginx gateway, mysql database and php-fpm engine
+# Groupe de studer_j
 
+# Crowdin
 
-## Prerequisites
-- Docker & DockerCompose installed
-- Composer installed
+## Contexte
+Bla bla le projet
 
-## Installation (dev mode)
-At the root of the project :
+## Prérequis
+- Docker et DockerCompose installé
+- Composer installé
+
+## Installation (mode dev)
+A la racine du projet :
 ```bash
 make install
 ```
 
-## Launch the app
-At the root of the project :
+## Lancer le projet
+A la racine du projet :
 ```bash
 make
 ```
-then go to `http://localhost:8080`
+et rendez-vous sur `http://localhost:8080`
 
-To update your code, launch the same command.
-
-## Stop the app
-At the root of the project :
+Le code se met à jour à chaque sauvegarde de fichier car le volume est monté,
+il est parfois nécessaire de mettre à jour les packages avec les commandes :
 ```bash
-docker-compose down
+# effectue un "composer install && composer fund" dans le container php
+make dinstall
+# effectue un "composer update" dans le container php
+make update
 ```

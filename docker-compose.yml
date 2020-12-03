@@ -26,7 +26,7 @@ services:
     restart: on-failure
     hostname: 'php'
     volumes:
-#      - ./trad_app:/app/:consistent
+      - ./trad_app:/app/:consistent
       - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.override.ini:ro
     working_dir: /app

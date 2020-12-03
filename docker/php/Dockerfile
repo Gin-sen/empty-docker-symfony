@@ -6,28 +6,42 @@ ENV PS1="\u@\h:\w\\$ "
 RUN apk update \
  && apk add --no-cache $PHPIZE_DEPS \
     bash \
+    wget \
     git \
     zip \
-    unzip
+    unzip \
+    yarn
+#    libxslt-dev \
+#    libgcrypt-dev \
+#    libsodium-dev \
+#    libmcrypt-dev \
+#    libpng-dev \
+#    libicu-dev
 
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 # PHP extensions
-RUN docker-php-ext-install opcache pdo_mysql mysqli
-RUN docker-php-ext-enable opcache
-#
+RUN install-php-extensions opcache redis pdo_mysql bcmath xsl session intl gd xdebug zip amqp apcu
+#RUN docker-php-ext-install opcache pdo_mysql mysqli xsl session gd intl
+RUN docker-php-ext-enable opcache xdebug apcu
 
-# xdebug extensions
-RUN pecl install xdebug
-RUN docker-php-ext-enable xdebug
-#
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 #
 
+# Test ext
+RUN wget https://get.symfony.com/cli/installer -O - | bash
+RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+#RUN symfony book:check-requirements | echo
+#RUN php -m
+#RUN php --ini
+
 # Composer parallel install plugin
 WORKDIR /app
-COPY trad_app /app
-RUN composer install
+#COPY trad_app /app
+#RUN composer install
+#RUN composer fund
+#VOLUME trad_app
 #
 
 RUN rm -rf /var/cache/apk/*
