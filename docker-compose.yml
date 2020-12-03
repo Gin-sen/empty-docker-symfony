@@ -6,7 +6,7 @@ services:
     image: mysql:8
     restart: on-failure
     volumes:
-      - ./docker/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf:ro
+      - ./config/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf:ro
       - ./trad_app/var/log/mysql:/var/log/mysql:consistent
     environment:
       MYSQL_DATABASE: '${MYSQL_DATABASE}'
@@ -17,12 +17,12 @@ services:
   php:
     build:
       context: .
-      dockerfile: docker/php/Dockerfile
+      dockerfile: config/php/Dockerfile
     restart: on-failure
     volumes:
       - ./trad_app:/app/:consistent
-      - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
-      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.override.ini:ro
+      - ./config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+      - ./config/php/php.ini:/usr/local/etc/php/conf.d/php.override.ini:ro
 
   nginx:
     image: nginx:1.19-alpine
@@ -31,8 +31,8 @@ services:
       - '8080:80'
     volumes:
       - ./trad_app:/app:consistent
-      - ./docker/nginx/app.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/app.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./trad_app/var/log/nginx:/var/log/nginx:consistent
     depends_on:
       - mysql

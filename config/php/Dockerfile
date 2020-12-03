@@ -21,7 +21,7 @@ RUN apk update \
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 # PHP extensions
 RUN install-php-extensions opcache redis pdo_mysql bcmath xsl session intl gd xdebug zip amqp apcu
-#RUN docker-php-ext-install opcache pdo_mysql mysqli xsl session gd intl
+#RUN config-php-ext-install opcache pdo_mysql mysqli xsl session gd intl
 RUN docker-php-ext-enable opcache xdebug apcu
 
 

@@ -57,3 +57,4 @@
 # Embedded web-server pid file
 /.web-server-pid
 /.idea/empty-docker-symfony.iml
+/.idea/php.xml
