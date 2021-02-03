@@ -1,5 +1,5 @@
 index:
-    path: /home
+    path: /landing
     controller: App\Controller\HomeController::index
 
 user:

@@ -2,27 +2,33 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class HomeController
+class HomeController extends AbstractController
 {
     /**
-     * @Route("/home", name="home")
-     *  @Security("is_granted('ROLE_ADMIN')")
+     * @Route("/", name="landing")
+     * @return Response
      */
-    public function index(): Response
+    public function index()
     {
-        $a = 'prout salut';
-
-        return new Response(
-            '<html lang="en"><body>Hello '.$a.' !</body></html>'
-        );
+        return $this->render('landing/landing.html.twig');
     }
 
+    /**
+     * @Route("/home", name="home")
+     * @return Response
+     */
+    public function home()
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('home/home.html.twig');
+    }
 
+// @Security("is_granted('ROLE_ADMIN')")
 
 
 }
