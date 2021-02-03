@@ -30,6 +30,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 #
 
 # Test ext
+RUN ls
 RUN wget https://get.symfony.com/cli/installer -O - | bash
 RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 #RUN symfony book:check-requirements | echo
