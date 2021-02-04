@@ -27,8 +27,8 @@
     padding: 0.75rem 1rem;
     border-radius: 2rem;
 }
-.container{background-color:#f1f1f1;}
-.watch-card{margin-top:50px;margin-bottom:50px;}
+.container{ }
+.watch-card{margin-top:50px;margin-bottom:50px; text-align: -webkit-center;}
 .watch-card > div{max-width:300px;}
 .watch-card:hover .user-title a, .watch-card:hover .listing-tab .tab-content ul li a{color:#167ac9;}
 .listing-tab .tab-content ul li:hover{cursor:pointer;text-decoration:underline;}

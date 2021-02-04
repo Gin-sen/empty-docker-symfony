@@ -20,16 +20,23 @@
 {#                        <div class="col-md-9 col-lg-8 mx-auto">#}
 {#                            <h3 class="user-heading mb-4">You are logged in as {{ app.user.email }}</h3>#}
 {#                        </div>#}
-                        <div class="col-md-4 watch-card">
+                        <span class="col-md-3"></span>
+
+                        <div class="col-md-12 watch-card">
                             <div class="user-title col-md-12">
                                 <span>{{ app.user.username }}</span><a href="#">update</a><br/>
                                 <span>{{ app.user.email }}</span>
                             </div>
                             <div class="col-md-12">
-                                <div class="col-md-6"><img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg" alt="artist-image" width="150" height="150"></div>
+                                <div class="col-md-4"><img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg" alt="artist-image" width="150" height="150"></div>
                             </div>
                             <div>
-                                <p>Description</p>
+                                <span>Description :</span>
+                                <p>
+                                    {% if (app.user.description == null) %}Describe yourself!
+                                    {% else %}{{ app.user.description }}
+                                    {% endif %}
+                                </p>
                             </div>
                             <div class="listing-tab col-md-12">
                                 <!-- Nav tabs -->
@@ -80,7 +87,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    <span class="col-md-3"></span>
                 </div>
             </div>
         </div>
