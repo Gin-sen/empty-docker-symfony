@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\CreateProjectType;
+use App\Repository\LanguageRepository;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,10 +29,13 @@ class ProjectController extends AbstractController
     /**
      * @Route("/new", name="project_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, LanguageRepository $languageRepository): Response
     {
         $project = new Project();
-        $form = $this->createForm(CreateProjectType::class, $project);
+        $languages = $languageRepository->findAll();
+        $form = $this->createForm(CreateProjectType::class, $project, [
+            'languages' => $languages,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

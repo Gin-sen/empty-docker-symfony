@@ -2,29 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Project;
+use App\Entity\File;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProjectType extends AbstractType
+class FileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('original_author')
-            ->add('original_language')
-            ->add('original_file')
-            ->add('owner')
-            ->add('traductions')
+            ->add('path', TextType::class)
+            ->add('languages', LanguageType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Project::class,
+            'data_class' => File::class,
         ]);
     }
 }
