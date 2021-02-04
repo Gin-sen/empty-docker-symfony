@@ -30,25 +30,37 @@ class Language
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="language")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="languages")
      */
     private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity=File::class, mappedBy="language")
+     * @ORM\ManyToMany(targetEntity=File::class, mappedBy="languages")
      */
     private $files;
 
     /**
-     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="original_file")
+     * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="original_file")
      */
     private $projects;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="languages")
+     */
+    private $translated_projects;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="original_language")
+     */
+    private $original_projects;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->files = new ArrayCollection();
         $this->projects = new ArrayCollection();
+        $this->translated_projects = new ArrayCollection();
+        $this->original_projects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,6 +173,63 @@ class Language
             // set the owning side to null (unless already changed)
             if ($project->getOriginalFile() === $this) {
                 $project->setOriginalFile(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getTranslatedProjects(): Collection
+    {
+        return $this->translated_projects;
+    }
+
+    public function addTranslatedProject(Project $translatedProject): self
+    {
+        if (!$this->translated_projects->contains($translatedProject)) {
+            $this->translated_projects[] = $translatedProject;
+            $translatedProject->addLanguage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslatedProject(Project $translatedProject): self
+    {
+        if ($this->translated_projects->removeElement($translatedProject)) {
+            $translatedProject->removeLanguage($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getOriginalProjects(): Collection
+    {
+        return $this->original_projects;
+    }
+
+    public function addOriginalProject(Project $originalProject): self
+    {
+        if (!$this->original_projects->contains($originalProject)) {
+            $this->original_projects[] = $originalProject;
+            $originalProject->setOriginalLanguage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOriginalProject(Project $originalProject): self
+    {
+        if ($this->original_projects->removeElement($originalProject)) {
+            // set the owning side to null (unless already changed)
+            if ($originalProject->getOriginalLanguage() === $this) {
+                $originalProject->setOriginalLanguage(null);
             }
         }
 

@@ -51,7 +51,7 @@ class User implements UserInterface
     /**
      * @ORM\ManyToMany(targetEntity=Language::class, inversedBy="users")
      */
-    private $language;
+    private $languages;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -63,10 +63,16 @@ class User implements UserInterface
      */
     private $projects;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="contributors")
+     */
+    private $contributions;
+
     public function __construct()
     {
         $this->language = new ArrayCollection();
         $this->projects = new ArrayCollection();
+        $this->contributions = new ArrayCollection();
     }
 
 
@@ -170,15 +176,15 @@ class User implements UserInterface
     /**
      * @return Collection|Language[]
      */
-    public function getLanguage(): Collection
+    public function getLanguages(): Collection
     {
-        return $this->language;
+        return $this->languages;
     }
 
     public function addLanguage(Language $language): self
     {
-        if (!$this->language->contains($language)) {
-            $this->language[] = $language;
+        if (!$this->languages->contains($language)) {
+            $this->languages[] = $language;
         }
 
         return $this;
@@ -186,7 +192,7 @@ class User implements UserInterface
 
     public function removeLanguage(Language $language): self
     {
-        $this->language->removeElement($language);
+        $this->languages->removeElement($language);
 
         return $this;
     }
@@ -228,6 +234,33 @@ class User implements UserInterface
             if ($project->getOwner() === $this) {
                 $project->setOwner(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getContributions(): Collection
+    {
+        return $this->contributions;
+    }
+
+    public function addContribution(Project $contribution): self
+    {
+        if (!$this->contributions->contains($contribution)) {
+            $this->contributions[] = $contribution;
+            $contribution->addContributor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContribution(Project $contribution): self
+    {
+        if ($this->contributions->removeElement($contribution)) {
+            $contribution->removeContributor($this);
         }
 
         return $this;

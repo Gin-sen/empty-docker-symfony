@@ -30,30 +30,38 @@ class Project
     private $original_author;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $original_language;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Language::class, inversedBy="projects")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $original_file;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
      */
     private $owner;
 
+
     /**
-     * @ORM\ManyToMany(targetEntity=File::class)
+     * @ORM\ManyToMany(targetEntity=File::class, inversedBy="")
      */
     private $traductions;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="contributions")
+     */
+    private $contributors;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Language::class, inversedBy="translated_projects")
+     */
+    private $languages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Language::class, inversedBy="original_projects")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $original_language;
 
     public function __construct()
     {
         $this->traductions = new ArrayCollection();
+        $this->contributors = new ArrayCollection();
+        $this->languages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,29 +93,6 @@ class Project
         return $this;
     }
 
-    public function getOriginalLanguage(): ?string
-    {
-        return $this->original_language;
-    }
-
-    public function setOriginalLanguage(string $original_language): self
-    {
-        $this->original_language = $original_language;
-
-        return $this;
-    }
-
-    public function getOriginalFile(): ?Language
-    {
-        return $this->original_file;
-    }
-
-    public function setOriginalFile(?Language $original_file): self
-    {
-        $this->original_file = $original_file;
-
-        return $this;
-    }
 
     public function getOwner(): ?User
     {
@@ -144,4 +129,65 @@ class Project
 
         return $this;
     }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getContributors(): Collection
+    {
+        return $this->contributors;
+    }
+
+    public function addContributor(User $contributor): self
+    {
+        if (!$this->contributors->contains($contributor)) {
+            $this->contributors[] = $contributor;
+        }
+
+        return $this;
+    }
+
+    public function removeContributor(User $contributor): self
+    {
+        $this->contributors->removeElement($contributor);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Language[]
+     */
+    public function getLanguages(): Collection
+    {
+        return $this->languages;
+    }
+
+    public function addLanguage(Language $language): self
+    {
+        if (!$this->languages->contains($language)) {
+            $this->languages[] = $language;
+        }
+
+        return $this;
+    }
+
+    public function removeLanguage(Language $language): self
+    {
+        $this->languages->removeElement($language);
+
+        return $this;
+    }
+
+    public function getOriginalLanguage(): ?Language
+    {
+        return $this->original_language;
+    }
+
+    public function setOriginalLanguage(?Language $original_language): self
+    {
+        $this->original_language = $original_language;
+
+        return $this;
+    }
+
 }

@@ -23,15 +23,9 @@ class File
     private $path;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\ManyToMany (targetEntity=Language::class, mappedBy="files")
      */
-    private $is_original;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Language::class, inversedBy="files")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $language;
+    private $languages;
 
     public function getId(): ?int
     {
@@ -50,26 +44,14 @@ class File
         return $this;
     }
 
-    public function getIsOriginal(): ?bool
+    public function getLanguages(): ?Language
     {
-        return $this->is_original;
+        return $this->languages;
     }
 
-    public function setIsOriginal(bool $is_original): self
+    public function setLanguages(?Language $languages): self
     {
-        $this->is_original = $is_original;
-
-        return $this;
-    }
-
-    public function getLanguage(): ?Language
-    {
-        return $this->language;
-    }
-
-    public function setLanguage(?Language $language): self
-    {
-        $this->language = $language;
+        $this->languages = $languages;
 
         return $this;
     }
