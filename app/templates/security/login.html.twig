@@ -7,18 +7,22 @@
 {% endblock %}
 
 {% block content %}
-{% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
 <div class="container-fluid">
     <div class="row no-gutter">
         <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
             <div class="col-md-8 col-lg-6">
+                Hello
                 <div class="login d-flex align-items-center py-5">
+                    world
                     <div class="container">
+                        !
                         <div class="row">
+                            euh
                             <div class="col-md-9 col-lg-8 mx-auto">
                                 <h3 class="login-heading mb-4">Welcome back!</h3>
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
                                 <form method="post">
                                     <div class="form-label-group">
                                         <label for="inputUsername">Username</label>

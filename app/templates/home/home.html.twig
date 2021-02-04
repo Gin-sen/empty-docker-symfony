@@ -4,15 +4,92 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% include('home/home.style.html.twig') %}
+    {{ encore_entry_link_tags('home') }}
 {% endblock %}
 
 {% block content %}
-    <div>
-        hello
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
+
+        </div>
+        <div class="col-md-8 col-lg-6">
+            <div class="truc d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+{#                        <div class="col-md-9 col-lg-8 mx-auto">#}
+{#                            <h3 class="user-heading mb-4">You are logged in as {{ app.user.email }}</h3>#}
+{#                        </div>#}
+                        <div class="col-md-4 watch-card">
+                            <div class="user-title col-md-12">
+                                <span>{{ app.user.username }}</span><a href="#">update</a><br/>
+                                <span>{{ app.user.email }}</span>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-6"><img src="http://i.ytimg.com/i/MXDyVR2tclKWhbqNforSyA/mq1.jpg" alt="artist-image" width="150" height="150"></div>
+                            </div>
+                            <div>
+                                <p>Description</p>
+                            </div>
+                            <div class="listing-tab col-md-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#track" aria-controls="track" role="tab" data-toggle="tab">Top tracks</a></li>
+                                    <li role="presentation"><a href="#albums" aria-controls="albums" role="tab" data-toggle="tab">Albums</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="track">
+                                        <ul>
+                                            <li><a href="#">Loyal</a>    <span>4:31</span></li>
+                                            <li><a href="#">Ayo</a> <span>6:01</span></li>
+                                            <li><a href="#">Look at Me Now</a>  <span>4:09</span></li>
+                                            <li><a href="#">Liquor</a>  <span>3:51</span></li>
+                                            <li><a href="#">Love More</a>   <span>4:15</span></li>
+                                            <li><a href="#">Bitches N Marijuana</a> <span>4:17</span></li>
+                                            <li><a href="#">Don't Judge Me</a>  <span>4:52</span></li>
+                                            <li><a href="#">Turn Up the Music</a>   <span>4:18</span></li>
+                                            <li><a href="#">With You</a>  <span>4:16</span></li>
+                                            <li><a href="#">Next to You</a> <span>6:04</span></li>
+                                            <li><a href="#">View all</a></li>
+                                        </ul>
+                                        <div class="related-artist">
+                                            <h3>Related artist</h3>
+                                            <div class="col-md-12">
+                                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/vWtix2TtWGe9kffqnwdaMw/mq1.jpg" alt="" >Rihanna</div>
+                                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/U6cE7pdJPc6DU2jSrKEsdQ/mq1.jpg" alt="" >Drake</div>
+                                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/2-zLDHEP2rEkqwgutb2ctA/mq1.jpg" alt="" >Tyga</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="albums">
+                                        <ul>
+                                            <li><a href="#"><img src="http://i.ytimg.com/p/PL-o37YO_uwcLPmR8QBTegC2BoJ03I3tqe/mqdefault.jpg" alt="" width="50" height="50"> Kiss kiss</a></li>
+
+                                        </ul>
+                                        <div class="related-artist">
+                                            <h3>Related artist</h3>
+                                            <div class="col-md-12">
+                                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/vWtix2TtWGe9kffqnwdaMw/mq1.jpg" alt="" >Rihanna</div>
+                                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/U6cE7pdJPc6DU2jSrKEsdQ/mq1.jpg" alt="" >Drake</div>
+                                                <div class="col-md-4 artist-next"><img src="http://i.ytimg.com/i/2-zLDHEP2rEkqwgutb2ctA/mq1.jpg" alt="" >Tyga</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{  parent() }}
+    {{ encore_entry_script_tags('home') }}
 {% endblock %}

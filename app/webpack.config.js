@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('log', './assets/log.js')
+    .addEntry('home', './assets/home.js')
     .copyFiles({
          from: './assets/images',
 
