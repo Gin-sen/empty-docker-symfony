@@ -24,9 +24,8 @@ RUN install-php-extensions opcache redis pdo_mysql bcmath xsl session intl gd xd
 #RUN config-php-ext-install opcache pdo_mysql mysqli xsl session gd intl
 RUN docker-php-ext-enable opcache xdebug apcu
 
-
 # Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN wget -O - https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 #
 
 # Test ext
@@ -39,12 +38,12 @@ RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
 # Composer parallel install plugin
 WORKDIR /app
-#COPY trad_app /app
+#COPY app /app
 #RUN composer install
 #RUN composer fund
-#VOLUME trad_app
+#VOLUME app
 #
-
+RUN mkdir -p /app/var/log /app/var/cache
+RUN chmod +w /app/var /app/var/log /app/var/cache
 RUN rm -rf /var/cache/apk/*
-
 CMD ["php-fpm", "--nodaemonize"]

@@ -1,2 +1,3 @@
-trad_app/vendor/
-trad_app/var/
+app/vendor/
+app/var/
+app/node_modules/
