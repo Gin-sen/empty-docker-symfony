@@ -39,10 +39,16 @@ class Language
      */
     private $files;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="original_file")
+     */
+    private $projects;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->files = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,6 +131,36 @@ class Language
             // set the owning side to null (unless already changed)
             if ($file->getLanguage() === $this) {
                 $file->setLanguage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+            $project->setOriginalFile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->removeElement($project)) {
+            // set the owning side to null (unless already changed)
+            if ($project->getOriginalFile() === $this) {
+                $project->setOriginalFile(null);
             }
         }
 

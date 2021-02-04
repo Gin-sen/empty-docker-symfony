@@ -3,7 +3,7 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <h1>User detail</h1>
 
     <table class="table">
         <tbody>
@@ -18,10 +18,6 @@
             <tr>
                 <th>Roles</th>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
             </tr>
             <tr>
                 <th>Email</th>
@@ -39,8 +35,10 @@
     </table>
 
     <a href="{{ path('user_index') }}">back to list</a>
-
+    {% if (app.user.id === user.id) %}
     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+    {% endif %}
+    {% if (is_granted('ROLE_ADMIN')) %}
+        {{ include('user/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}
